@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRuleSci } from '@/lib/context';
+import { useRuleSysci } from '@/lib/context';
 import { X, FlaskConical, Clock } from 'lucide-react';
 
 export default function LabMode() {
-    const { setLabMode, session } = useRuleSci();
+    const { setLabMode, session } = useRuleSysci();
     const [elapsed, setElapsed] = useState(0);
 
     useEffect(() => {
