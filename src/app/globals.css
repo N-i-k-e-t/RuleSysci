@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-deep-navy: #020617;
-  --color-cool-slate: #0f172a;
-  --color-slate-mid: #1e293b;
-  --color-slate-light: #94a3b8;
+  --color-deep-navy: #050505;
+  --color-cool-slate: #0a0a0b;
+  --color-slate-mid: #121214;
+  --color-slate-light: #64748b;
   --color-mist-gray: #e2e8f0;
   --color-soft-sand: #f8fafc;
   --color-off-white: #ffffff;
-  --color-muted-teal: #38bdf8;
+  --color-muted-teal: #00e5ff;
   --color-soft-amber: #fbbf24;
-  --color-status-deviation: #f43f5e;
+  --color-status-deviation: #ff2d55;
 }
 
 :root {
@@ -191,14 +191,14 @@ body {
 
 /* Card System */
 .card {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all var(--transition-base);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 .card:hover {
@@ -209,13 +209,13 @@ body {
 }
 
 .card-elevated {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.4));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(20, 20, 22, 0.9), rgba(10, 10, 12, 0.7));
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
 }
 
 .card-focus {
