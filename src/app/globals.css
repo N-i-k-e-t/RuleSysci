@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-navy: #0F172A;
+  --color-cool-slate: #1E293B;
+  --color-slate-mid: #334155;
+  --color-slate-light: #475569;
+  --color-mist-gray: #CBD5E1;
+  --color-soft-sand: #F1F5F9;
+  --color-off-white: #F8FAFC;
+  --color-muted-teal: #2A9D8F;
+  --color-soft-amber: #E9C46A;
+  --color-status-deviation: #E76F51;
+}
+
+:root {
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* Sidebar */
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 72px;
+
+  /* Status Colors */
+  --status-calm: #2A9D8F;
+  --status-caution: #E9C46A;
+  --status-deviation: #E76F51;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-gentle: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background-color: var(--color-deep-navy);
+  color: var(--color-mist-gray);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar — Minimal */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate-mid);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate-light);
+}
+
+/* Animations - Custom Classes */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn var(--transition-slow) forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp var(--transition-gentle) forwards;
+  }
+
+  .animate-fade-in-scale {
+    animation: fadeInScale var(--transition-slow) forwards;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 4s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes rhythm {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 0.8;
+  }
+}
+
+/* Layout Classes */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: var(--space-xl);
+  transition: margin-left var(--transition-base);
+  max-width: calc(100vw - var(--sidebar-width));
+}
+
+.app-main.sidebar-collapsed {
+  margin-left: var(--sidebar-collapsed);
+  max-width: calc(100vw - var(--sidebar-collapsed));
+}
+
+.app-main.focus-mode {
+  margin-left: 0;
+  max-width: 100vw;
+  padding: var(--space-3xl);
+}
+
+/* Card System */
+.card {
+  background: var(--color-cool-slate);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.card-elevated {
+  background: var(--color-cool-slate);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-focus {
+  background: var(--color-cool-slate);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  border: 1px solid rgba(42, 157, 143, 0.08);
+  box-shadow: 0 0 40px rgba(42, 157, 143, 0.08);
+}
+
+/* Badge System */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.badge-calm {
+  background: rgba(42, 157, 143, 0.15);
+  color: var(--color-muted-teal);
+}
+
+.badge-caution {
+  background: rgba(233, 196, 106, 0.15);
+  color: var(--color-soft-amber);
+}
+
+.badge-deviation {
+  background: rgba(231, 111, 81, 0.12);
+  color: var(--color-status-deviation);
+}
+
+.badge-neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-mist-gray);
+}
