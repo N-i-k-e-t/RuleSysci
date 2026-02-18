@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-deep-navy: #0F172A;
-  --color-cool-slate: #1E293B;
-  --color-slate-mid: #334155;
-  --color-slate-light: #475569;
-  --color-mist-gray: #CBD5E1;
-  --color-soft-sand: #F1F5F9;
-  --color-off-white: #F8FAFC;
-  --color-muted-teal: #2A9D8F;
-  --color-soft-amber: #E9C46A;
-  --color-status-deviation: #E76F51;
+  --color-deep-navy: #020617;
+  --color-cool-slate: #0f172a;
+  --color-slate-mid: #1e293b;
+  --color-slate-light: #94a3b8;
+  --color-mist-gray: #e2e8f0;
+  --color-soft-sand: #f8fafc;
+  --color-off-white: #ffffff;
+  --color-muted-teal: #38bdf8;
+  --color-soft-amber: #fbbf24;
+  --color-status-deviation: #f43f5e;
 }
 
 :root {
@@ -27,22 +27,22 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-xl: 24px;
 
   /* Sidebar */
-  --sidebar-width: 240px;
-  --sidebar-collapsed: 72px;
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 80px;
 
   /* Status Colors */
-  --status-calm: #2A9D8F;
-  --status-caution: #E9C46A;
-  --status-deviation: #E76F51;
+  --status-calm: #38bdf8;
+  --status-caution: #fbbf24;
+  --status-deviation: #f43f5e;
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
-  --transition-slow: 400ms ease;
-  --transition-gentle: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-gentle: 800ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -191,61 +191,95 @@ body {
 
 /* Card System */
 .card {
-  background: var(--color-cool-slate);
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all var(--transition-base);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card:hover {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(56, 189, 248, 0.3);
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-elevated {
-  background: var(--color-cool-slate);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.4));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 .card-focus {
-  background: var(--color-cool-slate);
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 70%),
+    rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl);
-  border: 1px solid rgba(42, 157, 143, 0.08);
-  box-shadow: 0 0 40px rgba(42, 157, 143, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 60px rgba(56, 189, 248, 0.05);
 }
 
 /* Badge System */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
+  gap: 8px;
+  padding: 6px 14px;
   border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
 }
 
 .badge-calm {
-  background: rgba(42, 157, 143, 0.15);
-  color: var(--color-muted-teal);
+  background: rgba(56, 189, 248, 0.1);
+  color: #7dd3fc;
+  border-color: rgba(56, 189, 248, 0.2);
 }
 
 .badge-caution {
-  background: rgba(233, 196, 106, 0.15);
-  color: var(--color-soft-amber);
+  background: rgba(251, 191, 36, 0.1);
+  color: #fcd34d;
+  border-color: rgba(251, 191, 36, 0.2);
 }
 
 .badge-deviation {
-  background: rgba(231, 111, 81, 0.12);
-  color: var(--color-status-deviation);
+  background: rgba(244, 63, 94, 0.1);
+  color: #fb7185;
+  border-color: rgba(244, 63, 106, 0.2);
 }
 
 .badge-neutral {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-mist-gray);
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Button Upgrades */
+button {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: white;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  transition: all var(--transition-base);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+  transform: translateY(-1px);
 }

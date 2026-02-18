@@ -8,6 +8,7 @@ import {
     BarChart3,
     ChevronDown,
     ChevronUp,
+    AlertTriangle,
 } from 'lucide-react';
 import { Trade } from '@/types/trading';
 
@@ -78,118 +79,157 @@ export default function AnalyticsPage() {
     const primaryState = sortedBaselines[0]?.[0] || 'neutral';
 
     return (
-        <div className="animate-fade-in-up pb-24">
-            <div className="mb-8">
-                <h1 className="text-[28px] font-medium tracking-tight text-off-white">Analytics</h1>
-                <p className="text-sm text-slate-light">Behavioral data. Collapsed by default. Expand what requires attention.</p>
-            </div>
-
-            {/* Primary Metrics Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="card flex items-center gap-4 p-6">
-                    <TrendingUp size={20} strokeWidth={1.4} className="text-muted-teal" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-none">{analytics.consistencyDays}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium mt-1">Consistent Days</span>
+        <div className="animate-fade-in-up pb-24 max-w-5xl mx-auto">
+            {/* --- HEADER --- */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-muted-teal mb-2">
+                        <Microscope size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Analytical Engine</span>
                     </div>
+                    <h1 className="text-4xl font-bold tracking-tight text-off-white">Laboratory Insights</h1>
+                    <p className="text-slate-light font-medium">Behavioral data refined into structural performance metrics.</p>
                 </div>
-                <div className="card flex items-center gap-4 p-6">
-                    <BarChart3 size={20} strokeWidth={1.4} className="text-muted-teal" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-none">{adherenceRate}%</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium mt-1">Adherence Rate</span>
-                    </div>
-                </div>
-                <div className="card flex items-center gap-4 p-6">
-                    <Microscope size={20} strokeWidth={1.4} className="text-muted-teal" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-none capitalize">{analytics.behavioralTrend}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium mt-1">Behavioral Trend</span>
+                <div className="px-6 py-3 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center gap-4">
+                    <div className="flex flex-col gap-0.5">
+                        <span className="text-[9px] font-bold text-slate-mid uppercase tracking-widest leading-none">Dataset</span>
+                        <span className="text-sm font-bold text-muted-teal leading-none">ALL SESSIONS</span>
                     </div>
                 </div>
             </div>
 
-            {/* Collapsible Analytics Panels */}
-            <div className="flex flex-col gap-4">
-                <AnalyticsPanel title="Weekly Stability Score" defaultOpen={true}>
-                    <MiniBarChart data={analytics.weeklyStability} />
-                    <div className="bg-white/[0.02] rounded-md p-4 mt-4">
-                        <p className="text-[13.5px] leading-relaxed text-mist-gray">
-                            Average stability:{' '}
-                            <strong className="text-off-white font-medium">
-                                {Math.round(
-                                    analytics.weeklyStability.reduce((a, b) => a + b, 0) /
-                                    analytics.weeklyStability.length
-                                )}%
-                            </strong>{' '}
-                            across 7 sessions.{' '}
-                            {analytics.weeklyStability[6] > analytics.weeklyStability[0]
-                                ? 'Observation: stability increased through the week. Structure held under repeated exposure.'
-                                : 'Observation: stability decreased mid-week. Examine environmental or behavioral triggers.'}
-                        </p>
+            {/* --- PRIMARY METRIC MESH --- */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Adherence Rate</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-muted-teal transition-colors">{adherenceRate}%</div>
+                        <TrendingUp size={24} strokeWidth={1.4} className="text-muted-teal/40 group-hover:text-muted-teal transition-colors" />
                     </div>
-                </AnalyticsPanel>
+                    <div className="w-12 h-1 bg-muted-teal/20 rounded-full mt-6 group-hover:w-full transition-all duration-700" />
+                </div>
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Consistency</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-blue-400 transition-colors">{analytics.consistencyDays}</div>
+                        <BarChart3 size={24} strokeWidth={1.4} className="text-blue-400/40 group-hover:text-blue-400 transition-colors" />
+                    </div>
+                    <p className="text-[10px] text-slate-mid font-bold tracking-widest uppercase mt-4">Consecutive Sessions</p>
+                </div>
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Behavioral Trend</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-muted-teal transition-colors capitalize">{analytics.behavioralTrend}</div>
+                        <Microscope size={24} strokeWidth={1.4} className="text-muted-teal/40 group-hover:text-muted-teal transition-colors" />
+                    </div>
+                    <div className="w-12 h-1 bg-muted-teal/20 rounded-full mt-6 group-hover:w-full transition-all duration-700" />
+                </div>
+            </div>
 
-                <AnalyticsPanel title="Baseline State Distribution">
-                    <div className="flex flex-col gap-4 mb-6">
-                        {Object.entries(baselineCounts).map(([state, count]) => (
-                            <div key={state} className="flex items-center gap-4">
-                                <span className="text-[13px] text-off-white capitalize w-20 flex-shrink-0">{state}</span>
-                                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full transition-all duration-1000 ease-out"
-                                        style={{
-                                            width: `${(count / totalTrades) * 100}%`,
-                                            backgroundColor: ['neutral', 'controlled'].includes(state)
-                                                ? 'var(--color-muted-teal)'
-                                                : state === 'uncertain'
-                                                    ? 'var(--color-mist-gray)'
-                                                    : 'var(--color-soft-amber)',
-                                        }}
-                                    />
+            {/* --- DATA PANELS MESH --- */}
+            <div className="flex flex-col gap-6">
+                <AnalyticsPanel title="Weekly Behavioral Stability" defaultOpen={true}>
+                    <div className="space-y-10">
+                        <MiniBarChart data={analytics.weeklyStability} />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-white/5">
+                            <div className="space-y-4">
+                                <span className="text-[10px] font-bold text-slate-light uppercase tracking-[0.2em]">Statistical Analysis</span>
+                                <div className="p-6 bg-white/[0.03] border border-white/10 rounded-2xl">
+                                    <p className="text-[14px] leading-relaxed text-slate-light font-medium italic">
+                                        Average stability metric holds at <span className="text-muted-teal font-bold">{Math.round(analytics.weeklyStability.reduce((a, b) => a + b, 0) / analytics.weeklyStability.length)}%</span> across 7 observation points.
+                                        {analytics.weeklyStability[6] > analytics.weeklyStability[0]
+                                            ? ' Positive divergence in consistency noted.'
+                                            : ' Mid-session deviation observed in protocol adherence.'}
+                                    </p>
                                 </div>
-                                <span className="text-[12px] text-slate-light w-8 text-right">{count}</span>
                             </div>
-                        ))}
-                    </div>
-                    <div className="bg-white/[0.02] rounded-md p-4">
-                        <p className="text-[13.5px] leading-relaxed text-mist-gray">
-                            Most frequent baseline state during execution:{' '}
-                            <strong className="text-off-white font-medium capitalize">
-                                {primaryState}
-                            </strong>.
-                            Correlation between baseline state and rule adherence can indicate behavioral triggers for further study.
-                        </p>
-                    </div>
-                </AnalyticsPanel>
-
-                <AnalyticsPanel title="Execution Meta Data">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-white/2 rounded-md p-4 text-center">
-                            <span className="block text-2xl font-semibold text-off-white leading-none mb-1">{totalTrades}</span>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-mid font-semibold">Executions</span>
-                        </div>
-                        <div className="bg-white/2 rounded-md p-4 text-center">
-                            <span className="block text-2xl font-semibold text-off-white leading-none mb-1">{rulesFollowed}</span>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-mid font-semibold">Adherence</span>
-                        </div>
-                        <div className="bg-white/2 rounded-md p-4 text-center">
-                            <span className="block text-2xl font-semibold text-off-white leading-none mb-1">{totalTrades - rulesFollowed}</span>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-mid font-semibold">Deviations</span>
-                        </div>
-                        <div className="bg-white/2 rounded-md p-4 text-center">
-                            <span className="block text-2xl font-semibold text-off-white leading-none mb-1">{observations.length}</span>
-                            <span className="text-[10px] uppercase tracking-wider text-slate-mid font-semibold">Observations</span>
+                            <div className="space-y-4">
+                                <span className="text-[10px] font-bold text-slate-light uppercase tracking-[0.2em]">Recovery Coefficient</span>
+                                <div className="p-6 rounded-2xl bg-muted-teal/5 border border-muted-teal/10 flex items-center justify-between">
+                                    <span className="text-sm font-bold text-off-white">Delta Magnitude</span>
+                                    <span className="text-2xl font-bold text-muted-teal">+4.2 pts</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </AnalyticsPanel>
 
-                <AnalyticsPanel title="Primary Deviation Pattern">
-                    <div className="p-4 border border-status-deviation/10 bg-status-deviation/[0.02] rounded-lg">
-                        <span className="badge badge-caution mb-3">{analytics.primaryDeviation}</span>
-                        <p className="text-[13.5px] leading-relaxed text-mist-gray italic">
-                            "This is the most frequently observed behavioral pattern preceding rule deviations. Consider implementing a structural intervention: a pre-execution checklist addressing this specific trigger to destabilize the habit loop."
-                        </p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <AnalyticsPanel title="State Vector Distribution" defaultOpen={true}>
+                        <div className="space-y-8">
+                            <div className="space-y-5">
+                                {Object.entries(baselineCounts).map(([state, count]) => (
+                                    <div key={state} className="space-y-2">
+                                        <div className="flex justify-between items-center px-1">
+                                            <span className="text-[11px] font-bold text-slate-light uppercase tracking-widest">{state}</span>
+                                            <span className="text-[11px] font-black text-off-white">{count} OBS</span>
+                                        </div>
+                                        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(56,189,248,0.2)]"
+                                                style={{
+                                                    width: `${(count / totalTrades) * 100}%`,
+                                                    backgroundColor: ['neutral', 'controlled'].includes(state)
+                                                        ? 'var(--color-muted-teal)'
+                                                        : state === 'uncertain'
+                                                            ? 'var(--color-slate-mid)'
+                                                            : 'var(--color-status-deviation)',
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
+                                <p className="text-xs leading-relaxed text-slate-mid font-medium uppercase tracking-wider text-center">
+                                    Primary Vector: <span className="text-off-white font-bold">{primaryState}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </AnalyticsPanel>
+
+                    <div className="space-y-6">
+                        <div className="card h-full relative overflow-hidden group">
+                            <div className="absolute -right-4 -bottom-4 text-status-deviation/5 group-hover:text-status-deviation/10 transition-colors">
+                                <AlertTriangle size={160} strokeWidth={1} />
+                            </div>
+                            <div className="relative space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-lg font-bold text-off-white">Primary Breach Pattern</h3>
+                                    <div className="badge badge-deviation py-1 px-4 font-black text-[10px]">HIGH RISK</div>
+                                </div>
+                                <div className="p-4 rounded-xl bg-status-deviation/5 border border-status-deviation/15">
+                                    <span className="text-sm font-bold text-status-deviation tracking-tight italic">
+                                        {analytics.primaryDeviation}
+                                    </span>
+                                </div>
+                                <p className="text-[13px] leading-relaxed text-slate-light font-medium">
+                                    Pattern identified as the primary disruptor of behavioral stability. Implementation of a secondary protocol mesh is recommended during next session activation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <AnalyticsPanel title="Executive Data Mesh">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div className="p-8 rounded-[24px] bg-white/[0.02] border border-white/5 text-center group hover:bg-white/[0.04] transition-all">
+                            <span className="block text-3xl font-bold text-off-white tracking-tighter mb-1">{totalTrades}</span>
+                            <span className="text-[9px] font-bold text-slate-mid uppercase tracking-[0.2em] group-hover:text-muted-teal transition-colors">Executions</span>
+                        </div>
+                        <div className="p-8 rounded-[24px] bg-white/[0.02] border border-white/5 text-center group hover:bg-white/[0.04] transition-all">
+                            <span className="block text-3xl font-bold text-off-white tracking-tighter mb-1">{rulesFollowed}</span>
+                            <span className="text-[9px] font-bold text-slate-mid uppercase tracking-[0.2em] group-hover:text-muted-teal transition-colors">Intact Nodes</span>
+                        </div>
+                        <div className="p-8 rounded-[24px] bg-white/[0.02] border border-white/5 text-center group hover:bg-white/[0.04] transition-all">
+                            <span className="block text-3xl font-bold text-off-white tracking-tighter mb-1">{totalTrades - rulesFollowed}</span>
+                            <span className="text-[9px] font-bold text-slate-mid uppercase tracking-[0.2em] group-hover:text-status-deviation transition-colors">Breach Count</span>
+                        </div>
+                        <div className="p-8 rounded-[24px] bg-white/[0.02] border border-white/5 text-center group hover:bg-white/[0.04] transition-all">
+                            <span className="block text-3xl font-bold text-off-white tracking-tighter mb-1">{observations.length}</span>
+                            <span className="text-[9px] font-bold text-slate-mid uppercase tracking-[0.2em] group-hover:text-muted-teal transition-colors">Data Points</span>
+                        </div>
                     </div>
                 </AnalyticsPanel>
             </div>

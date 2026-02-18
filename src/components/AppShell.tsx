@@ -21,10 +21,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {labMode && <LabMode />}
 
             {/* Legal Footer */}
-            <footer className={`fixed bottom-0 left-0 right-0 p-4 text-[10px] text-center text-slate-mid bg-deep-navy/80 backdrop-blur-sm z-40 transition-opacity duration-300 ${labMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                <p className="max-w-[960px] mx-auto">
-                    RuleSysci does not provide financial advice, trading signals, or automated trading.
-                    All entries are manual and for self-reflection purposes only.
+            <footer className={`fixed bottom-0 left-0 right-0 py-6 border-t border-white/[0.02] text-[9px] text-center text-slate-mid/40 bg-[#020617]/40 backdrop-blur-md z-40 transition-opacity duration-300 font-bold uppercase tracking-[0.2em] ${labMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                <p className="max-w-[960px] mx-auto px-10">
+                    RuleSysci Experimental Platform <span className="mx-3 opacity-20">|</span> Non-Financial Analytical Tool <span className="mx-3 opacity-20">|</span> Behavioral Data Mesh
                 </p>
             </footer>
         </div>

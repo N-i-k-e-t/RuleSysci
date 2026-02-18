@@ -17,98 +17,125 @@ export default function RulesPage() {
     const adherence = Math.round(((total - deviated) / total) * 100);
 
     return (
-        <div className="animate-fade-in-up pb-20">
-            <div className="mb-8">
-                <h1 className="text-[28px] font-medium tracking-tight text-off-white">Rule Framework</h1>
-                <p className="text-sm text-slate-light">Your behavioral structure. Deviations are observed, not judged.</p>
-            </div>
-
-            {/* Rule Status Summary */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="card flex items-center gap-4 py-6">
-                    <Shield size={24} strokeWidth={1.4} className="text-muted-teal" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-tight">{active}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium">Active Rules</span>
+        <div className="animate-fade-in-up pb-20 max-w-4xl mx-auto">
+            {/* --- HEADER --- */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-muted-teal mb-2">
+                        <Shield size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Protocol Framework</span>
                     </div>
+                    <h1 className="text-4xl font-bold tracking-tight text-off-white">Integrity Mesh</h1>
+                    <p className="text-slate-light font-medium">Your behavioral structure. Deviations are observed, not judged.</p>
                 </div>
-                <div className="card flex items-center gap-4 py-6">
-                    <AlertTriangle size={24} strokeWidth={1.4} className="text-soft-amber" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-tight">{deviated}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium">Deviations</span>
-                    </div>
-                </div>
-                <div className="card flex items-center gap-4 py-6">
-                    <Lock size={24} strokeWidth={1.4} className="text-mist-gray" />
-                    <div className="flex flex-col">
-                        <span className="text-2xl font-semibold text-off-white leading-tight">{adherence}%</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-light font-medium">Adherence</span>
+                <div className="px-6 py-3 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center gap-4">
+                    <div className="flex flex-col gap-0.5">
+                        <span className="text-[9px] font-bold text-slate-mid uppercase tracking-widest leading-none">Status</span>
+                        <span className="text-sm font-bold text-muted-teal leading-none">SYNCHRONIZED</span>
                     </div>
                 </div>
             </div>
 
-            {/* Rules locked notice */}
+            {/* --- SUMMARY MESH --- */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Active Nodes</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-muted-teal transition-colors">{active}</div>
+                        <Shield size={24} strokeWidth={1.4} className="text-muted-teal/40 group-hover:text-muted-teal transition-colors" />
+                    </div>
+                </div>
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Breach Points</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-status-deviation transition-colors">{deviated}</div>
+                        <AlertTriangle size={24} strokeWidth={1.4} className="text-status-deviation/40 group-hover:text-status-deviation transition-colors" />
+                    </div>
+                </div>
+                <div className="card-elevated group p-8 border-white/10">
+                    <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em] block mb-4">Adherence Coeff</span>
+                    <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-off-white tracking-tighter group-hover:text-blue-400 transition-colors">{adherence}%</div>
+                        <Lock size={24} strokeWidth={1.4} className="text-slate-mid/40 group-hover:text-blue-400 transition-colors" />
+                    </div>
+                </div>
+            </div>
+
+            {/* --- LOCKED PROTOCOL NOTICE --- */}
             {session.rulesLocked && (
-                <div className="bg-cool-slate/40 border border-white/5 p-4 rounded-lg flex items-center gap-3 mb-8 text-sm text-mist-gray">
-                    <Lock size={16} strokeWidth={1.6} className="flex-shrink-0" />
-                    <span>Rule framework is locked for the current session. Deviations are recorded for analysis.</span>
+                <div className="bg-muted-teal/5 border border-muted-teal/20 backdrop-blur-md p-6 rounded-[24px] flex items-center gap-4 mb-10 text-sm text-slate-light animate-fade-in shadow-[0_0_40px_rgba(56,189,248,0.05)]">
+                    <div className="p-2 bg-muted-teal/10 rounded-lg">
+                        <Lock size={18} className="text-muted-teal" />
+                    </div>
+                    <p className="font-medium">
+                        <span className="text-muted-teal font-bold uppercase tracking-wider mr-2">Framework Locked:</span>
+                        Rule structure is finalized for the current observing session. Every node state is logged.
+                    </p>
                 </div>
             )}
 
-            {/* Rule Cards */}
-            <div className="flex flex-col gap-3">
+            {/* --- RULE MESH NODES --- */}
+            <div className="space-y-4">
                 {rules.map((rule, index) => (
                     <div
                         key={rule.id}
-                        className={`card group flex items-center gap-6 py-5 px-6 transition-fast ${rule.violated ? 'border-status-deviation/20 bg-status-deviation/[0.02]' : ''
+                        className={`card-elevated group flex items-center gap-8 py-7 px-8 transition-all duration-500 hover:scale-[1.01] ${rule.violated
+                            ? 'border-status-deviation/30 bg-status-deviation/[0.03] shadow-[0_0_30px_rgba(244,63,94,0.05)]'
+                            : 'border-white/5 hover:border-white/10 bg-white/[0.01]'
                             }`}
                     >
-                        <div className="text-[13px] font-medium text-slate-mid group-hover:text-slate-light transition-fast">
-                            {String(index + 1).padStart(2, '0')}
+                        <div className="text-xs font-black text-slate-mid group-hover:text-muted-teal transition-colors tracking-tighter">
+                            CORE_{String(index + 1).padStart(2, '0')}
                         </div>
 
                         <div className="flex-1">
-                            <p className={`text-[15px] font-medium transition-fast ${rule.violated ? 'text-status-deviation/80' : 'text-off-white'
-                                }`}>
+                            <p className={`text-lg font-bold tracking-tight transition-colors duration-500 ${rule.violated ? 'text-status-deviation' : 'text-off-white group-hover:text-white'}`}>
                                 {rule.text}
                             </p>
-                            <div className="mt-1.5">
+                            <div className="mt-3 flex items-center gap-3">
                                 {rule.violated ? (
-                                    <span className="badge badge-deviation">
-                                        <AlertTriangle size={12} /> Deviated
-                                    </span>
+                                    <div className="badge badge-deviation py-1 px-4 font-bold flex items-center gap-2">
+                                        <AlertTriangle size={12} /> BREACHED
+                                    </div>
                                 ) : (
-                                    <span className="badge badge-calm">
-                                        <CheckCircle2 size={12} /> Held
-                                    </span>
+                                    <div className="badge badge-calm py-1 px-4 font-bold flex items-center gap-2">
+                                        <CheckCircle2 size={12} /> INTACT
+                                    </div>
                                 )}
+                                <div className="w-1 h-1 rounded-full bg-white/10" />
+                                <span className="text-[10px] font-bold text-slate-mid uppercase tracking-widest leading-none">Priority Alpha</span>
                             </div>
                         </div>
 
                         <button
-                            className={`w-10 h-10 rounded-full flex items-center justify-center transition-fast border ${rule.violated
-                                ? 'bg-status-deviation/10 border-status-deviation/20 text-status-deviation hover:bg-status-deviation/20'
-                                : 'bg-white/5 border-white/5 text-slate-mid hover:text-soft-amber hover:border-soft-amber/30'
+                            className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 border shadow-xl ${rule.violated
+                                ? 'bg-status-deviation/10 border-status-deviation/30 text-status-deviation hover:bg-status-deviation/20 active:scale-95'
+                                : 'bg-white/[0.03] border-white/10 text-slate-mid hover:text-white hover:border-white/20 active:scale-95'
                                 }`}
                             onClick={() => toggleRuleViolation(rule.id)}
-                            title={rule.violated ? 'Mark as held' : 'Mark as deviated'}
+                            title={rule.violated ? 'Reset Node' : 'Log Breach'}
                         >
                             {rule.violated ? (
-                                <CheckCircle2 size={18} />
+                                <CheckCircle2 size={24} />
                             ) : (
-                                <AlertTriangle size={18} />
+                                <AlertTriangle size={24} />
                             )}
                         </button>
                     </div>
                 ))}
             </div>
 
-            {/* Structural principle */}
-            <div className="mt-12 p-8 border-t border-white/4 text-center max-w-[640px] mx-auto">
-                <p className="text-[17px] italic text-slate-light leading-relaxed">
-                    "Structure is not restriction. It is the framework within which controlled performance becomes possible. When behavior is consistent, outcomes stabilize."
-                </p>
+            {/* --- PHILOSOPHICAL MESH --- */}
+            <div className="mt-20 pt-12 border-t border-white/5 relative">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 bg-deep-navy">
+                    <Shield size={24} className="text-muted-teal/20" />
+                </div>
+                <div className="text-center max-w-[640px] mx-auto space-y-4">
+                    <p className="text-lg font-medium italic text-slate-light leading-relaxed">
+                        "Structure is not restriction. It is the framework within which controlled performance becomes possible. When behavior is consistent, outcomes stabilize."
+                    </p>
+                    <p className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.3em]">Foundation Protocol v.4.0</p>
+                </div>
             </div>
         </div>
     );

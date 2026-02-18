@@ -51,92 +51,144 @@ export default function ObservePage() {
     // Full-screen observation mode
     if (writing) {
         return (
-            <div className="fixed inset-0 bg-deep-navy z-[200] flex flex-col p-8 animate-fade-in">
-                <div className="flex items-center justify-between pb-6 border-b border-white/4 flex-shrink-0">
-                    <div className="flex items-center gap-4">
-                        <select
-                            className="bg-white/4 border border-white/8 rounded-md px-4 py-2 text-sm text-off-white outline-none cursor-pointer"
-                            value={form.state}
-                            onChange={(e) => setForm({ ...form, state: e.target.value })}
-                        >
-                            {states.map((s) => (
-                                <option key={s.key} value={s.key} className="bg-cool-slate">{s.label}</option>
-                            ))}
-                        </select>
+            <div className="fixed inset-0 bg-[#020617] z-[200] flex flex-col p-10 animate-fade-in font-sans overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(56,189,248,0.05)_0%,_transparent_50%)] pointer-events-none" />
+
+                <div className="flex items-center justify-between pb-8 border-b border-white/5 relative z-10">
+                    <div className="flex items-center gap-6">
+                        <div className="px-6 py-2.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center gap-3">
+                            <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.2em]">Vector:</span>
+                            <select
+                                className="bg-transparent text-sm font-bold text-muted-teal outline-none cursor-pointer appearance-none pr-4"
+                                value={form.state}
+                                onChange={(e) => setForm({ ...form, state: e.target.value })}
+                            >
+                                {states.map((s) => (
+                                    <option key={s.key} value={s.key} className="bg-deep-navy">{s.label.toUpperCase()}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <button className="flex items-center gap-2 px-4 py-2 text-sm text-mist-gray hover:text-off-white transition-fast" onClick={cancelWriting}>
-                            <X size={16} /> Discard
+                    <div className="flex items-center gap-4">
+                        <button
+                            className="px-6 py-3 rounded-xl text-sm font-bold text-slate-mid hover:text-white transition-all flex items-center gap-2 group"
+                            onClick={cancelWriting}
+                        >
+                            <X size={18} className="group-hover:rotate-90 transition-transform" /> DISCARD SAMPLE
                         </button>
-                        <button className="bg-muted-teal text-off-white px-5 py-2 rounded-md text-sm font-medium transition-fast hover:bg-[#248f82] flex items-center gap-2" onClick={handleSubmit}>
-                            <PenLine size={16} /> Save Observation
+                        <button
+                            className="bg-muted-teal text-white shadow-[0_10px_30px_rgba(56,189,248,0.25)] px-8 py-3 rounded-2xl text-sm font-bold transition-all hover:scale-105 active:scale-95 flex items-center gap-3"
+                            onClick={handleSubmit}
+                        >
+                            <PenLine size={18} /> SYNCHRONIZE
                         </button>
                     </div>
                 </div>
 
-                <div className="flex-1 max-w-[720px] mx-auto w-full py-16 flex flex-col overflow-y-auto">
+                <div className="flex-1 max-w-4xl mx-auto w-full py-24 flex flex-col relative z-10 overflow-y-auto custom-scrollbar">
                     <input
-                        className="text-[32px] font-medium text-off-white border-none bg-transparent outline-none mb-8 tracking-tight placeholder:text-slate-mid"
+                        className="text-5xl font-black text-white border-none bg-transparent outline-none mb-12 tracking-tighter placeholder:text-white/10"
                         type="text"
-                        placeholder="Observation title..."
+                        placeholder="OBSERVATION TITLE"
                         value={form.title}
                         onChange={(e) => setForm({ ...form, title: e.target.value })}
                         autoFocus
                     />
                     <textarea
-                        className="flex-1 text-lg leading-[1.9] text-mist-gray border-none bg-transparent outline-none resize-none placeholder:text-slate-mid"
-                        placeholder="Record your behavioral observation. What patterns occurred? What triggered them? What was the behavioral state before, during, and after?"
+                        className="flex-1 text-xl leading-[1.8] text-slate-light border-none bg-transparent outline-none resize-none placeholder:text-slate-mid/30 font-medium"
+                        placeholder="Begin recording behavioral data points. Analyze the trigger logic, psychological ripples, and structural adherence during this cycle..."
                         value={form.content}
                         onChange={(e) => setForm({ ...form, content: e.target.value })}
                     />
                 </div>
 
-                <div className="text-center text-xs text-slate-mid py-4 flex-shrink-0">
-                    {form.content.split(/\s+/).filter(Boolean).length} words
+                <div className="flex items-center justify-between pt-8 border-t border-white/5 relative z-10">
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-mid uppercase tracking-widest">
+                            <div className="w-2 h-2 rounded-full bg-muted-teal animate-pulse" />
+                            Live Telemetry Active
+                        </div>
+                    </div>
+                    <div className="text-[10px] font-black text-slate-mid uppercase tracking-[0.4em]">
+                        {form.content.split(/\s+/).filter(Boolean).length} WORDS ENCRYPTED
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="animate-fade-in-up pb-20">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h1 className="text-[28px] font-medium tracking-tight text-off-white">Observe</h1>
-                    <p className="text-sm text-slate-light">Structured behavioral observation. No judgment. Only data.</p>
+        <div className="animate-fade-in-up pb-20 max-w-4xl mx-auto">
+            {/* --- HEADER --- */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-muted-teal mb-2">
+                        <Microscope size={14} />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Behavioral Lab</span>
+                    </div>
+                    <h1 className="text-4xl font-bold tracking-tight text-off-white">Observation Chamber</h1>
+                    <p className="text-slate-light font-medium">Capture raw behavioral state data with surgical precision.</p>
                 </div>
                 <button
-                    className="bg-muted-teal text-off-white px-4 py-2 rounded-md text-sm font-medium transition-fast hover:bg-[#248f82] flex items-center gap-2"
+                    className="bg-muted-teal text-white shadow-[0_10px_30px_rgba(56,189,248,0.25)] px-8 py-3.5 rounded-2xl text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-3 group"
                     onClick={startWriting}
                 >
-                    <Plus size={16} /> New Observation
+                    <Plus size={18} className="group-hover:rotate-90 transition-transform" /> NEW RECORD
                 </button>
             </div>
 
-            {/* Observation Prompt */}
-            <div className="card-focus mb-8 flex items-start gap-6">
-                <Microscope size={24} strokeWidth={1.4} className="text-muted-teal mt-1" />
-                <div className="flex flex-col gap-1.5">
-                    <h3 className="text-[11px] uppercase tracking-[0.1em] text-muted-teal font-semibold">Today's Inquiry</h3>
-                    <p className="text-[19px] italic text-off-white leading-relaxed font-medium">"What behavioral pattern am I repeating? Is it structural or reactive?"</p>
+            {/* --- DAILY INQUIRY MESH --- */}
+            <div className="card-elevated border-muted-teal/20 bg-muted-teal/[0.02] p-10 mb-12 flex items-start gap-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 text-muted-teal/5 group-hover:text-muted-teal/10 transition-colors">
+                    <Microscope size={100} strokeWidth={1} />
+                </div>
+                <div className="relative space-y-4">
+                    <div className="badge badge-calm py-1 px-4 font-black text-[10px] tracking-widest">DAILY HYPOTHESIS</div>
+                    <p className="text-2xl italic text-off-white leading-relaxed font-bold tracking-tight">
+                        "What behavioral pattern am I repeating? Is it structural or reactive?"
+                    </p>
                 </div>
             </div>
 
-            {/* Past Observations */}
-            <div className="grid grid-cols-1 gap-4">
-                {observations.map((obs) => (
-                    <div key={obs.id} className="card p-8 flex flex-col gap-4">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-sm text-slate-light tracking-wide">
-                                <Calendar size={14} strokeWidth={1.6} />
-                                {formatDate(obs.date)}
-                            </div>
-                            <span className="badge badge-neutral capitalize">{obs.state}</span>
+            {/* --- OBSERVATION LOG MESH --- */}
+            <div className="grid grid-cols-1 gap-6">
+                {observations.length === 0 ? (
+                    <div className="card-elevated border-white/5 py-32 text-center">
+                        <div className="w-20 h-20 bg-white/[0.02] border border-white/5 rounded-full flex items-center justify-center mx-auto mb-8 text-slate-mid">
+                            <PenLine size={32} strokeWidth={1} />
                         </div>
-                        <h3 className="text-xl font-medium text-off-white tracking-tight">{obs.title}</h3>
-                        <p className="text-[15px] leading-relaxed text-mist-gray">{obs.content}</p>
+                        <h4 className="text-xl font-bold text-off-white mb-2">No observation logs initiated.</h4>
+                        <p className="text-slate-mid text-sm">Protocol requires manual entry of behavioral data points.</p>
                     </div>
-                ))}
+                ) : (
+                    observations.map((obs) => (
+                        <div key={obs.id} className="card-elevated border-white/5 p-10 group hover:border-muted-teal/30 hover:bg-white/[0.01] transition-all duration-500">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-slate-mid">
+                                        <Calendar size={16} />
+                                    </div>
+                                    <span className="text-[12px] font-bold text-slate-light uppercase tracking-widest">
+                                        {formatDate(obs.date)}
+                                    </span>
+                                </div>
+                                <div className="badge badge-neutral py-1.5 px-5 font-black text-[10px] tracking-[0.2em] transition-all group-hover:bg-muted-teal group-hover:text-white border-white/10 group-hover:border-muted-teal">
+                                    {obs.state.toUpperCase()}
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-bold text-off-white tracking-tight mb-4 group-hover:text-white transition-colors">
+                                {obs.title || "UNTITLED LOG"}
+                            </h3>
+                            <p className="text-[16px] leading-[1.8] text-slate-light font-medium line-clamp-3">
+                                {obs.content}
+                            </p>
+                            <div className="mt-8 pt-8 border-t border-white/5 flex items-center justify-between">
+                                <span className="text-[10px] font-bold text-slate-mid uppercase tracking-[0.3em]">Protocol Log ID: {obs.id}</span>
+                                <button className="text-muted-teal text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">View Deep File</button>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );
@@ -150,3 +202,4 @@ function formatDate(dateStr: string) {
         year: 'numeric',
     });
 }
+
